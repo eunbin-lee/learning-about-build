@@ -21,17 +21,17 @@
 }
 ```
 
-./public/src : 직접 개발한 코드가 들어있는 폴더
-./public/lib : 자동으로 컴파일되어 생성되는 폴더
+- ./public/src : 직접 개발한 코드가 들어있는 폴더<br>
+- ./public/lib : 자동으로 컴파일되어 생성되는 폴더
 
 <br>
 
 ### 변환 옵션 설정
 
-.babelrc 파일 생성
+1. root 디렉토리에 .babelrc 파일 생성
 
-ECAM2015 preset을 사용하기 위해서는 해당 preset을 설치
-`npm install --save-dev babel-preset-es2015`
+2. ECAM2015 preset을 사용하기 위해서는 해당 preset을 설치<br>
+   `npm install --save-dev babel-preset-es2015`
 
 <br>
 
