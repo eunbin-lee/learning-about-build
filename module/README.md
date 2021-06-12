@@ -98,3 +98,24 @@ npx webpack
 ```
 node ./dist/main.js
 ```
+
+<br>
+
+### 웹팩 설정
+
+```js
+/* webpack.config.js */
+
+// __dirname, path module
+
+const path = require('path');
+
+module.exports = {
+  entry: './src/index.js',
+  output: {
+    path: path.resolve(__dirname, 'dist'), // 절대 경로
+    filename: 'bundle.js',
+  },
+  target: 'node',
+};
+```
