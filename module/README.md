@@ -119,3 +119,32 @@ module.exports = {
   target: 'node',
 };
 ```
+
+<br>
+<br>
+
+## Webpack 기본 구조
+
+> Package.json
+>
+> - dependencies: 어플리케이션 내부에 직접 포함되는 모듈
+> - devDependencies: 개발 과정에 필요한 모듈
+
+<br>
+
+### Mode
+
+<br>
+
+### Loader
+
+다양한 모듈들을 입력받아 처리하는 역할<br>
+(예시: webpack-practice)
+
+```js
+module.exports = {
+  module: {
+    rules: [loader1, loader2],
+  },
+};
+```
