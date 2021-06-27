@@ -148,3 +148,18 @@ module.exports = {
   },
 };
 ```
+
+<br>
+
+### Plugin
+
+웹팩이 동작하는 전반적인 과정에 개입하여 번들 파일에 변화를 주거나 개발 모드에서 개발 편의성을 제공해주거나 프로덕션 모드에서 코드의 최적화를 진행해주는 등 다양한 역할을 수행함
+
+> 외부 plugin 설치 방법<br>
+> `npm install html-webpack-plugin --save-dev`
+
+```js
+module.exports = {
+   plugins: [new Plugin({...option}), ...]
+}
+```
