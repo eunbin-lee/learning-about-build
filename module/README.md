@@ -159,11 +159,26 @@ module.exports = {
 
 웹팩이 동작하는 전반적인 과정에 개입하여 번들 파일에 변화를 주거나 개발 모드에서 개발 편의성을 제공해주거나 프로덕션 모드에서 코드의 최적화를 진행해주는 등 다양한 역할을 수행함
 
-> 외부 plugin 설치 방법<br>
-> `npm install html-webpack-plugin --save-dev`
+> 외부 plugin 설치 방법<br> > `npm install html-webpack-plugin --save-dev`
 
 ```js
 module.exports = {
    plugins: [new Plugin({...option}), ...]
 }
 ```
+
+<br>
+<br>
+
+## Webpack 설정하기
+
+#### Handlebars 설치
+
+`npm install handlebars --save-dev`<br>
+`npm install handlebars-loader --save-dev`<br><br>
+
+템플릿을 표현하는 방식 중 하나인 Mustache를 활용한 템플릿 엔진<br>
+Handlebars를 이용하면 템플릿 파일의 데이터가 어디에 어떻게 저장돼있는 지를 Mustache로 표현
+
+> Handlebars 로더는 함수로 컴파일하여 자바스크립트에서 임포트할 수 있도록 만들어 줌 (자바스크립트 파일이 아닌 것도 임포트할 수 있게 되어 하나의 번들로 생성, 이미지 파일을 base64로 인코딩된 URL 문자열로 변환하여 자바스크립트 내에서 사용 가능)<br>
+> [Webpack 소개](https://medium.com/@OutOfBedlam/webpack-%EC%86%8C%EA%B0%9C-d595f93d5c28)
