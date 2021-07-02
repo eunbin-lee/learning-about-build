@@ -180,5 +180,48 @@ module.exports = {
 템플릿을 표현하는 방식 중 하나인 Mustache를 활용한 템플릿 엔진<br>
 Handlebars를 이용하면 템플릿 파일의 데이터가 어디에 어떻게 저장돼있는 지를 Mustache로 표현
 
-> Handlebars 로더는 함수로 컴파일하여 자바스크립트에서 임포트할 수 있도록 만들어 줌 (자바스크립트 파일이 아닌 것도 임포트할 수 있게 되어 하나의 번들로 생성, 이미지 파일을 base64로 인코딩된 URL 문자열로 변환하여 자바스크립트 내에서 사용 가능)<br>
-> [Webpack 소개](https://medium.com/@OutOfBedlam/webpack-%EC%86%8C%EA%B0%9C-d595f93d5c28)
+> Handlebars 로더는 함수로 컴파일하여 자바스크립트에서 임포트할 수 있도록 만들어 줌 (자바스크립트 파일이 아닌 것도 임포트할 수 있게 되어 하나의 번들로 생성, 이미지 파일을 base64로 인코딩된 URL 문자열로 변환하여 자바스크립트 내에서 사용 가능)<br> > [Webpack 소개](https://medium.com/@OutOfBedlam/webpack-%EC%86%8C%EA%B0%9C-d595f93d5c28)
+
+<br>
+
+#### Caching
+
+사용자가 서비스를 위해 기다리는 시간을 최소화하기 위해 이용 (필요한 리소스의 복사본과 같은 역할)<br>
+
+`npm install clean-webpack-plugin --save-dev`<br>
+: 빌드 시 불필요한 파일을 제거해주는 플러그인 (새로 생성된 파일만 남김)
+
+```js
+// webpack.config.js
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+
+module.exports = {
+  plugins: [new CleanWebpackPlugin()],
+};
+```
+
+<br>
+
+`npm install mini-css-extract-plugin --save-dev`<br>
+: 캐싱을 위해 css를 외부로 빼서 활용시키도록 해주는 플러그인
+
+```js
+// webpack.config.js
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+module.exports = {
+  module: {
+    rules: [
+      {
+        loader: MiniCssExtractPlugin.loader,
+      },
+    ],
+  },
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: '[hash].css', // 빌드 시 해시값이 적용된 파일명으로 저장
+      filename: '[contenthash].css', // 빌드 시 콘텐츠가 바뀐 파일만 해시값을 다시 부여하여 저장
+    }),
+  ],
+};
+```
