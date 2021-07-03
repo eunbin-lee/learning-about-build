@@ -225,3 +225,51 @@ module.exports = {
   ],
 };
 ```
+
+<br>
+
+#### Chunk & chunkhash
+
+파일 크기가 커져 파일이 도착하는 시간이 지연될 경우 몇 가지의 기준을 통해 번들 파일을 분리하며, 번들 파일이 몇 개의 파일로 분리돼있는 형태를 Chunk라고 함
+
+- Runtime Chunk 파일
+  런타임 때 사용되는 코드들만 Chunk로 분류하게 되면 모듈들에 대한 내용만 남게 됨. 실제로 계속 변하는 코드들을 담고 있는 파일의 크기는 상대적으로 줄게 되고 런타임 코드는 변함이 없기 때문에 캐시가 적용되어 어플리케이션이 빠르게 실행됨
+
+  ```js
+  // webpack.config.js
+  module.exports = {
+    output: {
+      filename: '[name].[chunkhash].js', // name: entry 파일명 또는 웹팩 설정 파일 내에서 name property에 할당한 값이 적용됨
+    },
+    optimization: {
+      // Runtime Chunk 파일 설정
+      runtimeChunk: {
+        name: 'runtime',
+      },
+    },
+  };
+  ```
+
+- Vender(외부 패키지에 해당하는 모듈 ex. jQuery) Chunk 파일
+  외부에서 관리되는 모듈들만 따로 분류하면 우리가 작업한 코드들만 응집이 되고 Vender Chunk 파일은 해시값이 바뀌지 않기 때문에 캐시가 가능
+  ```js
+  // webpack.config.js
+  module.exports ={
+    optimization: {
+      runtimeChunk: {
+        name: 'runtime',
+      }
+      splitChunks: {
+        cacheGroups: {
+          commons: {
+            test: /[\\/]node_modules[\\/]/, // 공통으로 묶는 Chunk 파일을 node_modules 내에 해당 하는 파일로 설정
+            name: 'venders',
+            chunks: 'all',
+          },
+        },
+      },
+    }
+  }
+  ```
+
+<br>
