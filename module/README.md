@@ -202,8 +202,7 @@ module.exports = {
 
 <br>
 
-`npm install mini-css-extract-plugin --save-dev`<br>
-: 캐싱을 위해 css를 외부로 빼서 활용시키도록 해주는 플러그인
+`npm install mini-css-extract-plugin --save-dev`: 캐싱을 위해 css를 외부로 빼서 활용시키도록 해주는 플러그인
 
 ```js
 // webpack.config.js
@@ -273,3 +272,66 @@ module.exports = {
   ```
 
 <br>
+
+#### Mainification & Mangling
+
+코드의 형태를 압축시킴
+
+- 어플리케이션에 관여하지 않는 코드들을 제거(ex. 주석, console.log)
+- 들여쓰기, 띄어쓰기와 같은 공백을 제거
+- 난독화(변수, 함수, 클래스명과 같은 코드를 구성하는 표현을 알파벳으로 치환하기도 함)
+
+**HTML 최적화**
+
+```js
+// webpack.config.js
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+module.exports = {
+  plugins: [
+    new HtmlWebpackPlugin({
+      minify: {
+        collapseWhitespace: true, // 공백 제거
+        useShortDoctype: true, // doctype 줄이기
+        removeScriptTypeAttributes: true, // script의 type="text/javascript" 제거
+      },
+    }),
+  ],
+};
+```
+
+**CSS 최적화**<br>
+`npm install cssnano --save-dev`<br>
+`npm install optimize-css-assets-webpack-plugin --save-dev`: 웹팩이 빌드하는 과정에서 cssnano를 활용하여 CSS 최적화도 같이 진행되도록 해주는 모듈
+
+```js
+// webpack.config.js
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+
+module.exports = {
+  plugins: [
+    new OptimizeCssAssetsPlugin({
+      assetNameRegExp: /\.css$/g,
+      cssProcessor: require('cssnano'),
+      cssProcessorPluginOptions: {
+        preset: ['default', { discardComments: { removeAll: true } }],
+      },
+    }),
+  ],
+};
+```
+
+**JavaScript 최적화**<br>
+`npm install terser --save-dev`
+
+```js
+// webpack.config.js
+const TerserPlugin = require('terser-webpack-plugin');
+
+module.exports = {
+  optimization: {
+    minimize: true,
+    minimizer: [new TerserPlugin()],
+  },
+};
+```
